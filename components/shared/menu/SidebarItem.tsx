@@ -9,7 +9,6 @@ export function SidebarItem({
   isActive: boolean;
 }) {
   const activeLinkClass = (active: boolean) => {
-    console.log(active);
     if (active) return "primary-gradient rounded-lg text-light-900";
     return "text-dark300_light900";
   };
