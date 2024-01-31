@@ -1,8 +1,11 @@
+import { QuestionCard } from "@/components/cards/QuestionCard";
 import { HomeFilters } from "@/components/home/HomeFilters";
+import { NoResult } from "@/components/shared/NoResults";
 import { Filter } from "@/components/shared/filter/Filter";
 import { LocalSearch } from "@/components/shared/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
+import { questions } from "@/constants/questions";
 import Link from "next/link";
 
 export default function Home() {
@@ -32,6 +35,19 @@ export default function Home() {
         />
       </div>
       <HomeFilters />
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {questions?.map((question) => (
+          <QuestionCard key={question._id} question={question} />
+        ))}
+        {questions?.length === 0 && (
+          <NoResult
+            title="There`s no question to show"
+            description="Be the first to break the silence! Ask a Question and kickstart the discussion. Our query could be the next big thing others learn. Get involved"
+            linkTitle="Ask a Question"
+            link="/ask-question"
+          />
+        )}
+      </div>
     </>
   );
 }
