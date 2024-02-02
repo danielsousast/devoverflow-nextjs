@@ -82,7 +82,7 @@ export function RightSidebar() {
         ))}
       </div>
       <div>
-        <h3 className="h3-bold text-dark200_light900">Popular Tags</h3>
+        <h3 className="h3-bold text-dark200_light900 mt-10">Popular Tags</h3>
         <div className="mt-7 flex w-full flex-col gap-4">
           {popularTags.map((tag) => (
             <Tag

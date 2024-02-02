@@ -10,17 +10,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { BasicFormField } from "../FormField";
+import { TagFormField } from "./TagsFormField";
 import { questionSchema } from "./questionSchema";
 
 type FormData = z.infer<typeof questionSchema>;
 
+const type: any = "create";
+
 export function Question() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
   const form = useForm<FormData>({
     resolver: zodResolver(questionSchema),
@@ -32,35 +36,61 @@ export function Question() {
   });
 
   function onSubmit(values: FormData) {
-    console.log(values);
+    setIsSubmitting(true);
+
+    try {
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
+
+  const handleInputKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: any
+  ) => {
+    if (e.key === "Enter" && field.name === "tags") {
+      e.preventDefault();
+
+      const tagInput = e.target as HTMLInputElement;
+      const tagValue = tagInput.value.trim();
+
+      if (tagValue !== "") {
+        if (tagValue.length > 15) {
+          return form.setError("tags", {
+            type: "required",
+            message: "Tag must be less than 15 characters.",
+          });
+        }
+
+        if (!field.value.includes(tagValue as never)) {
+          form.setValue("tags", [...field.value, tagValue]);
+          tagInput.value = "";
+          form.clearErrors("tags");
+        }
+      } else {
+        form.trigger();
+      }
+    }
+  };
+
+  const handleTagRemove = (tag: string, field: any) => {
+    const newTags = field.value.filter((t: string) => t !== tag);
+
+    form.setValue("tags", newTags);
+  };
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col gap-10"
       >
-        <FormField
-          control={form.control}
+        <BasicFormField
+          form={form.control}
           name="title"
-          render={({ field }) => (
-            <FormItem className="flex w-full flex-col">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
-                Question Title <span className="text-primary-500">*</span>
-              </FormLabel>
-              <FormControl className="mt-3.5">
-                <Input
-                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription className="body-regular mt-2.5 text-light-500">
-                Be specific and imagine you are asking a question to another
-                person.
-              </FormDescription>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
+          title=" Question Title"
+          description=" Be specific and imagine you are asking a question to another person."
         />
         <FormField
           control={form.control}
@@ -117,30 +147,22 @@ export function Question() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="tags"
-          render={({ field }) => (
-            <FormItem className="flex w-full flex-col">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
-                Tags <span className="text-primary-500">*</span>
-              </FormLabel>
-              <FormControl className="mt-3.5">
-                <Input
-                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
-                  placeholder="Add tags..."
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription className="body-regular mt-2.5 text-light-500">
-                Add up 3 tags to describe what your question is about. You need
-                to press enter to add a tag.
-              </FormDescription>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
+        <TagFormField
+          control={form.control as any}
+          handleInputKeyDown={handleInputKeyDown}
+          handleTagRemove={handleTagRemove}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>{type === "Edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "Edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );

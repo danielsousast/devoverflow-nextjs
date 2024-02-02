@@ -1,6 +1,6 @@
 // import { Container } from './styles';
 
-import { Question } from "@/components/forms/Question";
+import { Question } from "@/components/forms/Question/Question";
 
 export default function AskQuestions() {
   return (
