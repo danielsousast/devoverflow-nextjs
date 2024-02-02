@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { createQuestion } from "@/lib/actions/question.action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef, useState } from "react";
@@ -35,10 +36,11 @@ export function Question() {
     },
   });
 
-  function onSubmit(values: FormData) {
+  async function onSubmit(values: FormData) {
     setIsSubmitting(true);
 
     try {
+      await createQuestion(values);
     } catch (error) {
     } finally {
       setIsSubmitting(false);
