@@ -1,3 +1,5 @@
+"use server";
+
 import { QuestionCard } from "@/components/cards/QuestionCard";
 import { HomeFilters } from "@/components/home/HomeFilters";
 import { NoResult } from "@/components/shared/NoResults";
@@ -5,10 +7,17 @@ import { Filter } from "@/components/shared/filter/Filter";
 import { LocalSearch } from "@/components/shared/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { questions } from "@/constants/questions";
+import { getQuestions } from "@/lib/actions/get-questions.action";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const response = await getQuestions({
+    page: 1,
+    pageSize: 10,
+  });
+
+  console.log(response);
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -36,10 +45,10 @@ export default function Home() {
       </div>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions?.map((question) => (
+        {response?.questions?.map((question) => (
           <QuestionCard key={question._id} question={question} />
         ))}
-        {questions?.length === 0 && (
+        {response?.questions?.length === 0 && (
           <NoResult
             title="There`s no question to show"
             description="Be the first to break the silence! Ask a Question and kickstart the discussion. Our query could be the next big thing others learn. Get involved"
