@@ -17,9 +17,9 @@ export async function deleteUser(params: DeleteUserParams) {
             throw new Error('User not found')
         }
 
-        const userQuestionIds = await QuestionModel.find({
-            author: user._id
-        }).distinct('_id')
+        //const userQuestionIds = await QuestionModel.find({
+        //author: user._id
+        //}).distinct('_id')
 
         //delete user questions
         await QuestionModel.deleteMany({

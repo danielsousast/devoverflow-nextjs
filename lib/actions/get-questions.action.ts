@@ -12,7 +12,7 @@ interface Params {
     filter?: string;
 }
 
-export async function getQuestions(params: Params) {
+export async function getQuestions(_params: Params) {
     try {
         connectToDatabase();
         const questions = await QuestionModel.find({}).populate({
