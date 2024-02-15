@@ -16,8 +16,6 @@ export default async function Home() {
     pageSize: 10,
   });
 
-  console.log(response);
-
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
