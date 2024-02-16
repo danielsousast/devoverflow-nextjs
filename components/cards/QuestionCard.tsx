@@ -30,7 +30,7 @@ export function QuestionCard({ question }: Props) {
       </div>
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <Metric
-          imgUrl="/assets/icons/avatar.svg"
+          imgUrl={question.author.picture}
           alt="User"
           value={question.author.name}
           title={`  - asked ${getTimestamp(question.createdAt)}`}
