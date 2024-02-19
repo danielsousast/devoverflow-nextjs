@@ -4,7 +4,7 @@ import Link from "next/link";
 interface TagProps {
   _id: string;
   name: string;
-  totalQuestions: number;
+  totalQuestions?: number;
   showCount?: boolean;
 }
 
