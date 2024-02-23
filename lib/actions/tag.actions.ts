@@ -1,5 +1,6 @@
 "use server"
 
+import { ITag, TagModel } from "@/models/tag.model";
 import { UserModel } from "@/models/user.model";
 import { connectToDatabase } from "../database";
 
@@ -19,6 +20,18 @@ export async function getTopInteractedTags({ userId, limit = 20, }: GetTopIntera
         }
 
         const tags = [{ _id: "1", name: "tag1" }, { _id: "2", name: "tag2" }]
+        return tags;
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export async function getAllTags(): Promise<ITag[]> {
+    try {
+        connectToDatabase();
+
+        const tags = TagModel.find();
         return tags;
     } catch (error) {
         throw error

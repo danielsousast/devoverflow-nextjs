@@ -1,4 +1,5 @@
 import { Document, Schema, model, models } from "mongoose";
+import { IUser } from "./user.model";
 
 export interface IQuestion extends Document {
     title: string;
@@ -10,6 +11,10 @@ export interface IQuestion extends Document {
     author: Schema.Types.ObjectId;
     answers: Schema.Types.ObjectId[];
     createdAt: Date;
+}
+
+export interface Question {
+    author: IUser
 }
 
 export const QuestionSchema = new Schema({

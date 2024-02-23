@@ -8,6 +8,7 @@ interface Author {
     _id: string;
     name: string;
     picture: string;
+    clerkId: string;
 }
 
 export interface Question {
