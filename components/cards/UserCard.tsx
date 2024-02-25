@@ -1,9 +1,9 @@
-import { getTopInteractedTags } from "@/lib/actions/tag.actions";
 import { IUser } from "@/models/user.model";
 import Image from "next/image";
 import Link from "next/link";
 import { Tag } from "../shared/tag/Tag";
 import { Badge } from "../ui/badge";
+import { getTopInteractedTags } from "@/features/tag/actions";
 
 interface Props {
   user: IUser;

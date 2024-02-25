@@ -3,7 +3,7 @@ import { Filter } from "@/components/shared/filter/Filter";
 import { LocalSearch } from "@/components/shared/search/LocalSearch";
 import { Title } from "@/components/shared/typo/title";
 import { UserFilters } from "@/constants/filters";
-import { getAllUsers } from "@/lib/actions/user.action";
+import { getAllUsers } from "@/features/user/actions";
 import Link from "next/link";
 
 export default async function CommunityPage() {

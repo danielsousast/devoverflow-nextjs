@@ -4,7 +4,7 @@ import { Filter } from "@/components/shared/filter/Filter";
 import { LocalSearch } from "@/components/shared/search/LocalSearch";
 import { Title } from "@/components/shared/typo/title";
 import { UserFilters } from "@/constants/filters";
-import { getAllTags } from "@/lib/actions/tag.actions";
+import { getAllTags } from "@/features/tag/actions";
 
 export default async function TagsPage() {
   const tags = await getAllTags();

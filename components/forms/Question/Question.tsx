@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { createQuestion } from "@/lib/actions/create-question.action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -20,6 +19,7 @@ import { z } from "zod";
 import { BasicFormField } from "../FormField";
 import { TagFormField } from "./TagsFormField";
 import { questionSchema } from "./questionSchema";
+import { createQuestion } from "@/features/question/actions";
 
 type FormData = z.infer<typeof questionSchema>;
 

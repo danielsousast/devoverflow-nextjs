@@ -8,7 +8,7 @@ import { LocalSearch } from "@/components/shared/search/LocalSearch";
 import { Title } from "@/components/shared/typo/title";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { getQuestions } from "@/lib/actions/get-questions.action";
+import { getQuestions } from "@/features/question/actions";
 import Link from "next/link";
 
 export default async function Home() {

@@ -1,6 +1,6 @@
 import { Metric } from "@/components/shared/Metric";
 import { Tag } from "@/components/shared/tag/Tag";
-import { getQuestionById } from "@/lib/actions/get-questions.action";
+import { getQuestionById } from "@/features/question/actions";
 import { getTimestamp } from "@/lib/dateUtils";
 import { formatAndDivideNumber } from "@/lib/numberUtils";
 import Image from "next/image";

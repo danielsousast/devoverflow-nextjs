@@ -1,8 +1,6 @@
 import { ITag } from "@/models/tag.model";
 import Link from "next/link";
 
-// import { Container } from './styles';
-
 export function TagCard({ tag }: { tag: ITag }) {
   return (
     <Link href={`/tags/${tag._id}`} className="shadow-light100_darknone">

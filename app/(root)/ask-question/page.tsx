@@ -1,7 +1,5 @@
-// import { Container } from './styles';
-
 import { Question } from "@/components/forms/Question/Question";
-import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/features/user/actions";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
