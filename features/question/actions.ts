@@ -4,8 +4,8 @@ import { connectToDatabase } from "@/lib/database";
 import { QuestionModel } from "@/models/question.model";
 import { TagModel } from "@/models/tag.model";
 import { UserModel } from "@/models/user.model";
-import { GetQuestionsParams } from "./interfaces";
 import { Question } from "@/types/models/Question";
+import { GetQuestionsParams } from "./interfaces";
 
 interface CreateQuestionParams {
   title: string;
@@ -49,7 +49,7 @@ export async function createQuestion(params: CreateQuestionParams) {
         tags: { $each: tagDocuments },
       },
     });
-  } catch (error) {}
+  } catch (error) { }
 }
 
 export async function getQuestions(_params: GetQuestionsParams) {
@@ -98,3 +98,5 @@ export async function getQuestionById(params: {
     throw new Error("Error getting question by id");
   }
 }
+
+

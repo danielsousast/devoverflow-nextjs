@@ -20,4 +20,5 @@ export interface Question {
     views: number;
     author: Author;
     answers: Array<object>;
+    content: string;
 }

@@ -10,16 +10,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { createQuestion } from "@/features/question/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Editor } from "@tinymce/tinymce-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { TextEditor } from "../Editor";
 import { BasicFormField } from "../FormField";
 import { TagFormField } from "./TagsFormField";
 import { questionSchema } from "./questionSchema";
-import { createQuestion } from "@/features/question/actions";
 
 type FormData = z.infer<typeof questionSchema>;
 
@@ -119,41 +119,13 @@ export function Question({ mongoUserId }: QuestionProps) {
                 <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                <Editor
+                <TextEditor
                   onInit={(evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={""}
-                  init={{
-                    height: 350,
-                    menubar: false,
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "codesample",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                    ],
-                    toolbar:
-                      "undo redo | " +
-                      "codesample | bold italic forecolor | alignleft aligncenter |" +
-                      "alignright alignjustify | bullist numlist",
-                    content_style: "body { font-family:Inter; font-size:16px }",
-                  }}
-                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">

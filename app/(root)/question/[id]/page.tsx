@@ -1,8 +1,12 @@
+import { AnswerForm } from "@/components/forms/Answer";
 import { Metric } from "@/components/shared/Metric";
+import { ParseHTML } from "@/components/shared/ParseHTML";
 import { Tag } from "@/components/shared/tag/Tag";
 import { getQuestionById } from "@/features/question/actions";
+import { getUserById } from "@/features/user/actions";
 import { getTimestamp } from "@/lib/dateUtils";
 import { formatAndDivideNumber } from "@/lib/numberUtils";
+import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,8 +17,15 @@ interface Props {
 }
 
 export default async function QuestionPage({ params }: Props) {
-  const { id } = params;
-  const question = await getQuestionById({ questionId: id });
+  const { id: questionId } = params;
+  const { userId: clerkId } = auth();
+  const question = await getQuestionById({ questionId });
+
+  let mongoUser;
+
+  if (clerkId) {
+    mongoUser = await getUserById({ userId: clerkId });
+  }
 
   return (
     <>
@@ -41,6 +52,7 @@ export default async function QuestionPage({ params }: Props) {
           {question?.title}
         </h2>
       </div>
+      <ParseHTML data={question.content} />
       <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
           imgUrl="/assets/icons/clock.svg"
@@ -69,6 +81,7 @@ export default async function QuestionPage({ params }: Props) {
           <Tag key={tag._id} _id={tag._id} name={tag.name} showCount={false} />
         ))}
       </div>
+      <AnswerForm questionId={questionId} authorId={mongoUser._id as string} />
     </>
   );
 }
