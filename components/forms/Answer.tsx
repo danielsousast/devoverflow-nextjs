@@ -47,8 +47,8 @@ export function AnswerForm({ questionId, authorId }: Props) {
     try {
       await createAnswer({
         content: values.answer,
-        authorId: JSON.parse(authorId),
-        questionId: JSON.parse(questionId),
+        authorId: authorId,
+        questionId: questionId,
         path: pathname,
       });
 

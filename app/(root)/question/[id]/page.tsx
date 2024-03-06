@@ -1,4 +1,5 @@
 import { AnswerForm } from "@/components/forms/Answer";
+import { AllAnswers } from "@/components/shared/AllAnswers";
 import { Metric } from "@/components/shared/Metric";
 import { ParseHTML } from "@/components/shared/ParseHTML";
 import { Tag } from "@/components/shared/tag/Tag";
@@ -81,7 +82,12 @@ export default async function QuestionPage({ params }: Props) {
           <Tag key={tag._id} _id={tag._id} name={tag.name} showCount={false} />
         ))}
       </div>
-      <AnswerForm questionId={questionId} authorId={mongoUser._id as string} />
+      <AllAnswers
+        questionId={question._id}
+        userId={mongoUser?._id}
+        totalAnswers={question.answers?.length}
+      />
+      <AnswerForm questionId={questionId} authorId={mongoUser?._id as string} />
     </>
   );
 }
